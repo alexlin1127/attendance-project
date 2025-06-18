@@ -1,7 +1,7 @@
 <?php
-require_once "../inc/db.inc.php";
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once "../inc/twig.inc.php";
+require_once __DIR__ . '/../inc/twig.inc.php';
+require_once __DIR__ . '/../inc/db.inc.php'; 
 
 // 取得所有學員姓名（給下拉選單用）
 $stmt = $pdo->prepare("SELECT name FROM attendance_log GROUP BY name");

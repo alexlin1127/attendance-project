@@ -1,4 +1,4 @@
-{% extends '/partial//backend/dashboard.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
 {% block content %}
 <style>
@@ -13,12 +13,12 @@
 
     <!-- 新增數據按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="att_list.php?mode=add" class="btn btn-info w-100">新增數據</a>
+      <a href="switch.php?mode=add_data" class="btn btn-info w-100">新增數據</a>
     </div>
 
     <!-- 建立使用者按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="att_list.php?mode=add" class="btn btn-secondary w-100">建立使用者</a>
+      <a href="switch.php?mode=add_user" class="btn btn-secondary w-100">建立使用者</a>
     </div>
 
     <!-- 查詢表單 -->
@@ -85,7 +85,6 @@
                                 <a href="#" class="btn btn-sm btn-primary">查看</a>
                                 <a href="#" class="btn btn-sm btn-warning">編輯</a>
                                 <a href="#" class="btn btn-sm btn-danger">刪除</a>
-                                
                             </div>
                             </td>
                         </tr>

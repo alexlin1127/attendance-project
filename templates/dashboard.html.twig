@@ -15,36 +15,18 @@
     <body>
 
         {# 導航選單 #}
-        {% include "nav.inc.twig" %}
+        {% include "partial/nav.inc.twig" %}
 
-        {# 主板型 #}
-        <main class="container-fluid">
+        {# 主版型 #}
+        <main class="container-fluid mt-4">
             <div class="row g-0">
                 {# 功能清單 #}
-                <div class="col-md-2">
-                    <!-- <div class="col col-md-11"> -->
-                    <div class="row row-cols-1">
-                        <div class="list-group list-group-flush">
-                            <h4 class="list-group-item active text-center bg-info">功能選單</h4>
-                            <a
-                                href="javascript:;"
-                                class="list-group-item list-group-item-action text-center fw-bold fs-5">
-                                出缺席記錄查詢
-                            </a>
-                            <a
-                                href="bk-product.php?mode=viewcart"
-                                class="list-group-item list-group-item-action text-center fw-bold fs-5 border-bottom">
-                                匯出報表
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- </div> -->
-                </div>
+                {% include "partial/backend/menu.html.twig" %}
 
                 {# 主畫面區 #}
                 <div class="col-md-10 bg-light">
                     <div class="col col-md-11 ms-5">
+                        {% block content %}
                         <div class="row row-cols-md-1 mt-5 mb-3">
                             <div class="col">
                                 <div class="card shadow-sm border-0">
@@ -136,6 +118,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
