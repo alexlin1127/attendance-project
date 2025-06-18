@@ -98,6 +98,9 @@
 </div>
 <nav class="d-flex align-items-center justify-content-center">
   <ul class="pagination">
+  <li class="page-item">
+      <a class="page-link" href="?page=1&{{ queryString }}">至第一頁</a>
+    </li>
    {# 上一頁按鈕 #}
     <li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
       <a class="page-link" href="?page={{ prevpage }}&{{ queryString }}">上一頁</a>
@@ -113,6 +116,9 @@
     {# 下一頁按鈕 #}
     <li class="page-item {% if currentPage == totalPages %}disabled{% endif %}">
       <a class="page-link" href="?page={{ nextpage }}&{{ queryString }}">下一頁</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ totalPages }}&{{ queryString }}">至最終頁</a>
     </li>
     <li class="page-item disabled">
       <span class="page-link">第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁</span>

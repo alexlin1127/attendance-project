@@ -92,5 +92,10 @@ $data['currentPage'] = $page;
 // 指定模板路徑
 $tempfile = 'partial/backend/att_list.html.twig';
 
+
+
+
+
+
 // 使用 twig 模板引擎渲染
 echo $twig->render($tempfile, $data);
