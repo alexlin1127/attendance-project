@@ -1,0 +1,9 @@
+{% extends '/partial//backend/dashboard.html.twig' %}
+
+{% block content %}
+<div class="alert {{alert_type}} alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<a href='att_list.php' class="btn btn-light">回到學員資料</a>
+{% endblock %}
