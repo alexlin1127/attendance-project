@@ -40,6 +40,14 @@ if (!empty($end_date)) {
     $params[':end'] = $end_date ;
 }
 
+//end_date需比start_date大
+$data['dateError'] = false;
+
+if (!empty($start_date) && !empty($end_date)) {
+    if ($start_date > $end_date) {
+        $data['dateError'] = true;
+    }
+}
 //組query string給分頁
 $query = [];
 if (!empty($selected_name)) 
@@ -90,12 +98,10 @@ $data['totalPages'] = $totalPages;
 $data['currentPage'] = $page;
 
 // 指定模板路徑
-$tempfile = 'partial/backend/att_list.html.twig';
-
-
+$tmplFile = 'partial/backend/att_list.html.twig';
 
 
 
 
 // 使用 twig 模板引擎渲染
-echo $twig->render($tempfile, $data);
+echo $twig->render($tmplFile, $data);
