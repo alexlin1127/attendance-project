@@ -47,11 +47,11 @@ $data['chart']['raw_rate'] = $rate['raw_rate']; // 平均到校時數
 
 // 取得所有課程名稱, 平均課程達成率, 總課程數
 $stmt = $pdo->prepare('SELECT c.class_name, ROUND(AVG(a.attended_hours/ a.class_hours), 4)* 100 as avg_att_rate
-                       FROM classes c 
-                       LEFT JOIN attendance_log a 
-                       ON c.class_date = a.class_date 
-                       GROUP BY c.class_name
-                       ORDER BY c.class_name;');
+                    FROM classes c 
+                    LEFT JOIN attendance_log a 
+                    ON c.class_date = a.class_date 
+                    GROUP BY c.class_name
+                    ORDER BY c.class_name;');
 
 $stmt->execute();
 $cplmts = $stmt->fetchAll();
@@ -61,5 +61,9 @@ foreach($cplmts as $cplmt) {
     $data['chart']['cplmt'][] =  $cplmt['avg_att_rate']; // 平均課程達成率
     $data['chart']['classList'][] = $cplmt['class_name']; // 所有課程名稱
 }
+
+// 課程達成率由大到小排列
+// $sortIndex = array_keys($data['chart']['cplmt']);
+// array_multisort($data['chart']['cplmt'], SORT_DESC, $data['chart']['classList'], SORT_DESC);
 
 echo $twig->render('dashboard.html.twig', $data);
