@@ -4,11 +4,12 @@
     $host = 'localhost';        
     $dbName = 'myatt';  
     $username = 'myattdb';      
-    $password = 'muiWLyczhj0[L92/';          
+    $password = '16d7a4fca7442dda3ad93c9a726597e4';          
     $charset = 'utf8mb4';
+    $port = '3308';
 
     // DSN (Data Source Name)
-    $dsn = "mysql:host={$host};dbname={$dbName};charset={$charset}";
+    $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset={$charset}";
 
     // PDO 連接選項
     $options = [

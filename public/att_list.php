@@ -1,7 +1,7 @@
 <?php
-require_once "../inc/db.inc.php";
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once "../inc/twig.inc.php";
+require_once __DIR__ . '/../inc/twig.inc.php';
+require_once __DIR__ . '/../inc/db.inc.php'; 
 
 // 取得所有學員姓名（給下拉選單用）
 $stmt = $pdo->prepare("SELECT name FROM attendance_log GROUP BY name");
@@ -31,10 +31,12 @@ if (!empty($selected_name)) {
     $where[] = "name = :sname";
     $params[':sname'] = $selected_name;
 }
+
 if (!empty($start_date)) {
     $where[] = "class_date >= :start";
     $params[':start'] = $start_date ; 
 }
+
 if (!empty($end_date)) {
     $where[] = "class_date <= :end";
     $params[':end'] = $end_date ;
@@ -48,13 +50,21 @@ if (!empty($start_date) && !empty($end_date)) {
         $data['dateError'] = true;
     }
 }
+
 //組query string給分頁
 $query = [];
-if (!empty($selected_name)) 
-{$query['student_name'] = $selected_name;}
+if (!empty($selected_name)) {
+    $query['student_name'] = $selected_name;
+}
+
 if (!empty($start_date)) {
-    $query['start_date'] = $start_date;}
-if (!empty($end_date))  {$query['end_date'] = $end_date;}
+    $query['start_date'] = $start_date;
+}
+
+if (!empty($end_date))  {
+    $query['end_date'] = $end_date;
+}
+
 $data['queryString'] = http_build_query($query);
 
 
@@ -63,10 +73,13 @@ $sqlCount = "SELECT COUNT(*) as total FROM attendance_log";
 if ($where) {
     $sqlCount .= " WHERE " . implode(" AND ", $where);
 }
+
 $stmt = $pdo->prepare($sqlCount);
+
 foreach ($params as $key => $val) {
     $stmt->bindValue($key, $val);
 }
+
 $stmt->execute();
 $total = $stmt->fetch();
 $totalCount = $total['total'];
@@ -76,15 +89,18 @@ $totalPages = ceil($totalCount / $perPage);
 
 // 查詢分頁資料
 $sql = "SELECT * FROM attendance_log";
+
 if ($where) {
     $sql .= " WHERE " . implode(" AND ", $where);
 }
-$sql .= " LIMIT :offset, :perPage";
 
+$sql .= " LIMIT :offset, :perPage";
 $stmt = $pdo->prepare($sql);
+
 foreach ($params as $key => $val) {
     $stmt->bindValue($key, $val);
 }
+
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->bindValue(':perPage', $perPage, PDO::PARAM_INT);
 
