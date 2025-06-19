@@ -1,24 +1,18 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block content %}
-<style>
-.table-fixed {
-  table-layout: fixed;
-  width: 100%;
-}
-</style>
 <h3>學員資料</h3>
 <div class="container">
   <div class="row mb-3 align-items-end">
 
     <!-- 新增數據按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_data" class="btn btn-info w-100">新增數據</a>
+      <a href="att_list.php?mode=add_data" class="btn btn-info w-100">新增數據</a>
     </div>
 
     <!-- 建立使用者按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_user" class="btn btn-secondary w-100">建立使用者</a>
+      <a href="att_list.php?mode=add_user" class="btn btn-secondary w-100">建立使用者</a>
     </div>
 
     <!-- 查詢表單 -->
@@ -43,7 +37,10 @@
 
         <div class="col-md-3">
           <label class="form-label">結束日期</label>
-          <input type="date" name="end_date" value="{{ end_date|default('') }}" class="form-control">
+          <input type="date" name="end_date" value="{{ end_date|default('') }}" class="form-control {% if dateError %}is-invalid{% endif %}">
+           {% if dateError %}
+          <div class="invalid-feedback">開始日期不能晚於結束日期</div>
+          {% endif %}
         </div>
 
         <div class="col-md-2">
@@ -55,7 +52,7 @@
     
   </div>
 </div>
-<div class="row mb-4">
+<div class="row mb-5">
     <div class="col-12 col-sm-12 col-md-12">
         <div class="card">
             <div class="card-body">
@@ -83,8 +80,9 @@
                             <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="#" class="btn btn-sm btn-primary">查看</a>
-                                <a href="#" class="btn btn-sm btn-warning">編輯</a>
-                                <a href="#" class="btn btn-sm btn-danger">刪除</a>
+                                <a href="switch.php?mode=edit&id={{item.id}}" class="btn btn-sm btn-warning">編輯</a>
+                                <a href="switch.php?mode=deldata&id={{item.id}}" class="btn btn-sm btn-danger">刪除</a>
+                                
                             </div>
                             </td>
                         </tr>
@@ -95,7 +93,8 @@
         </div>
     </div>
 </div>
-<nav class="d-flex align-items-center justify-content-center">
+{# 頁碼 #}
+<nav class="d-flex align-items-center justify-content-center mb-5">
   <ul class="pagination">
   <li class="page-item">
       <a class="page-link" href="?page=1&{{ queryString }}">至第一頁</a>
