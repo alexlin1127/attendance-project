@@ -7,12 +7,12 @@
 
     <!-- 新增數據按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_data" class="btn btn-info w-100">新增數據</a>
+      <a href="switch.php?mode=add_data" class="btn btn-outline-secondary w-100">新增數據</a>
     </div>
 
     <!-- 建立使用者按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_user" class="btn btn-secondary w-100">建立使用者</a>
+      <a href="switch.php?mode=add_user" class="btn btn btn-outline-success w-100">建立使用者</a>
     </div>
 
     <!-- 查詢表單 -->
@@ -45,7 +45,7 @@
 
         <div class="col-md-2">
           <label class="form-label d-block invisible">搜尋</label>
-          <button type="submit" class="btn btn-primary w-100">搜尋</button>
+          <button type="submit" class="btn btn-dark w-100">搜尋</button>
         </div>
       </form>
     </div>
@@ -81,12 +81,8 @@
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="switch.php?mode=show&name={{item.name}}" class="btn btn-sm btn-primary">查看</a>
                                 <a href="switch.php?mode=edit&id={{item.id}}" class="btn btn-sm btn-warning">編輯</a>
-<<<<<<< HEAD
                                 <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="{{ item.id }}">刪除</a>
-                                
-=======
-                                <a href="switch.php?mode=deldata&id={{item.id}}" class="btn btn-sm btn-danger">刪除</a>
->>>>>>> a884b3698437716cd100443709fdb875e8da7b55
+                              
                             </div>
                             </td>
                         </tr>

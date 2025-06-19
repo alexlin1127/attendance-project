@@ -1,11 +1,18 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block content %}
+<style>
+input[readonly] {
+  background-color:rgb(179, 179, 179);
+  border:rgb(205, 205, 205), dashed;
+  cursor: not-allowed;
+}
+</style>
 <div class="row row-cols-md-1">
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <form method="post" action="switch.php?mode=savedata" enctype="multipart/form-data">
+                <form method="post" action="switch.php?mode=savedata" enctype="multipart/form-data" class="d-flex flex-column gap-3">
                     <div>
                         <label>流水號</label>
                         <input type="text" class="form-control" name="pid" value="{{result.id}}" readonly>
@@ -30,7 +37,7 @@
                         <label>缺席時數</label>
                         <input type="text" class="form-control" name="pabs" value="{{result.absent_hours}}">
                     </div>
-                    <button type="submit" class="btn btn-success">更新</button>
+                    <button type="submit" class="btn btn-success my-4 mx-auto w-50">更新</button>
                 </form>
             </div>
         </div>
