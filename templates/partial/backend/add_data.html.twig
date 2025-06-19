@@ -2,14 +2,16 @@
 
 {% block content %}
 {% if flag == false %}
-    <div class="row row-cols-md-1 mt-5 mb-3">
+    <div class="row row-cols-md-1">
         <div class="col">
             <div class="alert {{alert_type}} alert-dismissible fade show" role="alert">
                 <div>{{ message | raw }}</div>
-                <a type="button" href="att_list.php" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
+                <a type="button" href="#" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
             </div>
         </div>
     </div>
+
+    <a href='att_list.php' class="btn btn-light">回到學員資料</a>
 {% endif %}
 
 <div class="row row-cols-md-1">
