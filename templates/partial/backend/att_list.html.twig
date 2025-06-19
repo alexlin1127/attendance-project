@@ -1,0 +1,130 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block content %}
+<h3>學員資料</h3>
+<div class="container">
+  <div class="row mb-3 align-items-end">
+
+    <!-- 新增數據按鈕 -->
+    <div class="col-md-2 col-sm-4 mb-3">
+      <a href="att_list.php?mode=add_data" class="btn btn-info w-100">新增數據</a>
+    </div>
+
+    <!-- 建立使用者按鈕 -->
+    <div class="col-md-2 col-sm-4 mb-3">
+      <a href="att_list.php?mode=add_user" class="btn btn-secondary w-100">建立使用者</a>
+    </div>
+
+    <!-- 查詢表單 -->
+    <div class="col-md-8">
+      <form method="get" action="att_list.php" class="row g-2">
+        <div class="col-md-4">
+          <label class="form-label">學員姓名</label>
+          <select name="student_name" class="form-select">
+            <option value="">全部學員</option>
+            {% for student in students %}
+              <option value="{{ student.name }}" {{ student.name == selected_name ? 'selected' : '' }}>
+                {{ student.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">開始日期</label>
+          <input type="date" name="start_date" value="{{ start_date|default('') }}" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">結束日期</label>
+          <input type="date" name="end_date" value="{{ end_date|default('') }}" class="form-control {% if dateError %}is-invalid{% endif %}">
+           {% if dateError %}
+          <div class="invalid-feedback">開始日期不能晚於結束日期</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label d-block invisible">搜尋</label>
+          <button type="submit" class="btn btn-primary w-100">搜尋</button>
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+<div class="row mb-5">
+    <div class="col-12 col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover table-fixed text-center">
+                    <thead>
+                        <tr>
+                            <th>流水號</th>
+                            <th>名字</th>
+                            <th>日期</th>
+                            <th>出席時數</th>
+                            <th>早退時數</th>
+                            <th>缺席時數</th>
+                            <th>功能</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in results %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.class_date}} </td>
+                            <td>{{item.attended_hours}}</td>
+                            <td>{{item.leave_early_hours}}</td>
+                            <td>{{item.absent_hours}}</td>
+                            <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="#" class="btn btn-sm btn-primary">查看</a>
+                                <a href="switch.php?mode=edit&id={{item.id}}" class="btn btn-sm btn-warning">編輯</a>
+                                <a href="switch.php?mode=deldata&id={{item.id}}" class="btn btn-sm btn-danger">刪除</a>
+                                
+                            </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{# 頁碼 #}
+<nav class="d-flex align-items-center justify-content-center mb-5">
+  <ul class="pagination">
+  <li class="page-item">
+      <a class="page-link" href="?page=1&{{ queryString }}">至第一頁</a>
+    </li>
+   {# 上一頁按鈕 #}
+    <li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
+      <a class="page-link" href="?page={{ prevpage }}&{{ queryString }}">上一頁</a>
+    </li>
+    {# 目前頁數為中心、前後最多 2 頁 #}
+    {% set startPage = currentPage - 2 > 0 ? currentPage - 2 : 1 %}
+    {% set endPage = currentPage + 2 < totalPages ? currentPage + 2 : totalPages%}
+    {% for p in startPage..endPage %}
+      <li class="page-item {% if p == currentPage %}active{% endif %}">
+        <a class="page-link" href="?page={{ p }}&{{ queryString }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+    {# 下一頁按鈕 #}
+    <li class="page-item {% if currentPage == totalPages %}disabled{% endif %}">
+      <a class="page-link" href="?page={{ nextpage }}&{{ queryString }}">下一頁</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ totalPages }}&{{ queryString }}">至最終頁</a>
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link">第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁</span>
+    </li>
+  </ul>
+</nav>
+{% endblock %}
+{% block scripts %}
+
+
+{% endblock %}

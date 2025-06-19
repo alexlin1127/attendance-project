@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<div class="container-fluid">
+		<!-- 後台標題 -->
+		<a class="navbar-brand ms-5" href="dashboard.php">出缺勤系統後台</a>
+
+		<!-- 漢堡選單按鈕 (小螢幕顯示) -->
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarNav"
+			aria-controls="navbarNav"
+			aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="blank"></div>
+		<!-- 導航菜單內容 -->
+		<div class="collapse navbar-collapse justify-content-end me-3" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item me-lg-4">
+					<a class="nav-link active" aria-current="page" href="dashboard.php">首頁</a>
+				</li>
+
+				<li class="nav-item me-lg-4">
+					<a class="nav-link active" aria-current="page" href="#">{{useracc}}</a>
+				</li>
+				
+				<li class="nav-item text-end">
+					<a class="btn btn-outline-warning" aria-current="page" href="logout.php">登出</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
