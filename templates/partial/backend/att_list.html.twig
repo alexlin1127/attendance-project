@@ -1,18 +1,18 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block content %}
-<h3>學員資料</h3>
+<h3 class="mt-3">學員資料</h3>
 <div class="container">
   <div class="row mb-3 align-items-end">
 
     <!-- 新增數據按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_data" class="btn btn-info w-100">新增數據</a>
+      <a href="switch.php?mode=add_data" class="btn btn-outline-secondary w-100">新增數據</a>
     </div>
 
     <!-- 建立使用者按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_user" class="btn btn-secondary w-100">建立使用者</a>
+      <a href="switch.php?mode=add_user" class="btn btn btn-outline-success w-100">建立使用者</a>
     </div>
 
     <!-- 查詢表單 -->
@@ -45,7 +45,7 @@
 
         <div class="col-md-2">
           <label class="form-label d-block invisible">搜尋</label>
-          <button type="submit" class="btn btn-primary w-100">搜尋</button>
+          <button type="submit" class="btn btn-dark w-100">搜尋</button>
         </div>
       </form>
     </div>
@@ -81,7 +81,8 @@
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="switch.php?mode=show&name={{item.name}}" class="btn btn-sm btn-primary">查看</a>
                                 <a href="switch.php?mode=edit&id={{item.id}}" class="btn btn-sm btn-warning">編輯</a>
-                                <a href="switch.php?mode=deldata&id={{item.id}}" class="btn btn-sm btn-danger">刪除</a>
+                                <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="{{ item.id }}">刪除</a>
+                              
                             </div>
                             </td>
                         </tr>
@@ -122,8 +123,41 @@
     </li>
   </ul>
 </nav>
+
+{# modal #}
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="get" action="switch.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">確認刪除</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+        </div>
+        <div class="modal-body">
+          確定要刪除這筆資料嗎？
+        </div>
+        {# 將mode=deldata傳url #}
+        <input type="hidden" name="mode" value="deldata">
+        {# 將id=選擇的id傳入，以js寫入 #}
+        <input type="hidden" name="id" id="delete-id">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-danger">確定刪除</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 {% block scripts %}
-
+<script>
+{# bs提供 Modal 彈出前觸發事件show.bs.modal，觸發元素relatedTarget#}
+document.getElementById('confirmDeleteModal').addEventListener('show.bs.modal', function (event) {
+  const button = event.relatedTarget;
+  const id = button.getAttribute('data-id');
+  document.getElementById('delete-id').value = id;
+});
+</script>
 
 {% endblock %}
