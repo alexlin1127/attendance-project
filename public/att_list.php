@@ -116,7 +116,8 @@ $data['currentPage'] = $page;
 // 指定模板路徑
 $tmplFile = 'partial/backend/att_list.html.twig';
 
-
+// Todo: 此處待修改為登入使用者 
+$data['useracc'] = "admin@demo.com";
 
 
 // 使用 twig 模板引擎渲染
