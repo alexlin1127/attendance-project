@@ -125,7 +125,9 @@ $data['currentPage'] = $page;
 $tmplFile = 'partial/backend/att_list.html.twig';
 
 // Todo: 此處待修改為登入使用者 
-$data['useracc'] = "admin@demo.com";
+$data['useracc'] = $_SESSION['backend_login_acc'];
+$data['role'] = $_SESSION['backend_login_role'];
+$data['username'] = $_SESSION['backend_login_name'];
 
 
 // 使用 twig 模板引擎渲染

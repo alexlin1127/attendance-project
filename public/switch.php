@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../inc/twig.inc.php';
 require_once __DIR__ . '/../inc/db.inc.php'; 
@@ -41,19 +42,50 @@ switch($mode) {
         break;
 
     case 'show':
+        $data['useracc'] = $_SESSION['backend_login_name'];
         $name = $_GET['name'];
-        $stmt = $pdo->prepare("select * from attendance_log where name = :name");
+        $stmt = $pdo->prepare("SELECT name, 
+                                      round(sum(class_hours), 1) as class_hours, 
+                                      round(sum(attended_hours), 1) as attended_hours, 
+                                      round(sum(absent_hours), 1) as absent_hours, 
+                                      round(sum(late_hours), 1) as late_hours, 
+                                      round(sum(leave_early_hours), 1) as leave_early_hours, 
+                                      round((sum(attended_hours) / sum(class_hours)) * 100, 1) as attendance_rate 
+                                      FROM `attendance_log` 
+                                      where name = :name;");
+
         $stmt->execute([":name" => $name]);
-        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $data['chart']['date'] = [];
-        
-        foreach($records as $record) {
-            $data['chart']['date'][] = $record['class_date'];
+        $records = $stmt->fetch(PDO::FETCH_ASSOC);
+        $data['chart']['name'] = $name;
+        $data['chart']['class_hours_total'] = $records['class_hours'];
+        $data['chart']['attended_hours_total'] = $records['attended_hours'];
+        $data['chart']['absent_hours_total'] = $records['absent_hours'];
+        $data['chart']['late_hours_total'] = $records['late_hours'];
+        $data['chart']['leave_early_hours_total'] = $records['leave_early_hours'];
+        $data['chart']['attendance_rate'] = $records['attendance_rate'];
+
+        $stmt = $pdo->prepare("SELECT class_date, attended_hours, raw_hours 
+                               FROM `attendance_log` 
+                               WHERE name = :name;");
+        $stmt->execute([":name" => $name]);
+        $data['chart']['rows'] = $stmt->rowCount();
+        $record2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($record2 as $record) {
+            $data['chart']['class_date'][] = $record['class_date'];
+            $data['chart']['attended_hours'][] = $record['attended_hours'];
+            $data['chart']['raw_hours'][] = $record['raw_hours'];
         }
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
+        $tmplFile = 'partial/backend/show_att.html.twig';
+        echo $twig->render($tmplFile, $data);
         exit();
 
     case 'add_data':
         $data['flag'] = true;
+        $data['useracc'] = $_SESSION['backend_login_acc'];
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
         $tmplFile = 'partial/backend/add_data.html.twig';
         echo $twig->render($tmplFile, $data);
         exit();
@@ -120,23 +152,23 @@ switch($mode) {
             exit();
         }
 
-        // $stmt = $pdo->prepare("insert into attendance_log (name, class_date, class_hours, raw_hours, attended_hours, 
-        //                        late_hours, leave_early_hours, absent_hours) values ( name = :pname, class_date = :pdate, 
-        //                        class_hours = :pclass, raw_hours = :praw, attended_hours = :patt, late_hours = :plate, 
-        //                        leave_early_hours = :pleave, absent_hours = :pabs;");
+        $stmt = $pdo->prepare("insert into attendance_log (name, class_date, class_hours, raw_hours, attended_hours, 
+                               late_hours, leave_early_hours, absent_hours) values ( name = :pname, class_date = :pdate, 
+                               class_hours = :pclass, raw_hours = :praw, attended_hours = :patt, late_hours = :plate, 
+                               leave_early_hours = :pleave, absent_hours = :pabs;");
 
-        // $stmt->execute(
-        //     [
-        //         ":pname" => $_POST['pname'],
-        //         ":pdate" => $_POST['pdate'],
-        //         ":pclass" => $_POST['pclass'],
-        //         ":praw" => (int)$_POST['patt'] + 1.5,
-        //         ":patt" => $_POST['patt'],
-        //         ":plate" => $_POST['plate'],
-        //         ":pleave" => $_POST['pleave'],
-        //         ":pabs" => $_POST['pabs']
-        //     ]
-        // );
+        $stmt->execute(
+            [
+                ":pname" => $_POST['pname'],
+                ":pdate" => $_POST['pdate'],
+                ":pclass" => $_POST['pclass'],
+                ":praw" => (int)$_POST['patt'] + 1.5,
+                ":patt" => $_POST['patt'],
+                ":plate" => $_POST['plate'],
+                ":pleave" => $_POST['pleave'],
+                ":pabs" => $_POST['pabs']
+            ]
+        );
 
         $data["message"] = "您已成功新增學員 ".$_POST['pname']." 於 ".$_POST['pdate']." 的出缺勤資料";
         $data["alert_type"] = "alert-success";
@@ -145,6 +177,9 @@ switch($mode) {
 
     case 'add_user':
         $data['flag'] = true;
+        $data['useracc'] = $_SESSION['backend_login_acc'];
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
         $tmplFile = 'partial/backend/add_user.html.twig';
         echo $twig->render($tmplFile, $data);
         exit();
@@ -169,24 +204,12 @@ switch($mode) {
     
 
     case 'deldata':    
-        // $stmt = $pdo->prepare("delete from attendance_log where id = :id");
-        // $stmt->execute(
-        //     [
-        //      ":id"=>$_GET['id']
-        //     ]
-        // );
-        $data["message"] = "您已成功刪除資料-ID為".$_GET['id']."的資訊";
-        $data["alert_type"] = "alert-warning";
-        $tmplFile = 'partial/message.html.twig';
-        break;
-    
-    case 'export_data':    
-        // $stmt = $pdo->prepare("delete from attendance_log where id = :id");
-        // $stmt->execute(
-        //     [
-        //      ":id"=>$_GET['id']
-        //     ]
-        // );
+        $stmt = $pdo->prepare("delete from attendance_log where id = :id");
+        $stmt->execute(
+            [
+             ":id"=>$_GET['id']
+            ]
+        );
         $data["message"] = "您已成功刪除資料-ID為".$_GET['id']."的資訊";
         $data["alert_type"] = "alert-warning";
         $tmplFile = 'partial/message.html.twig';
