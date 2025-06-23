@@ -18,6 +18,9 @@ switch($mode) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([":id" => $id]);
         $data['result'] = $stmt->fetch();
+        $data['useracc'] = $_SESSION['backend_login_acc'];
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
         $tmplFile = 'partial/backend/edit.html.twig';
         break;
 
@@ -38,6 +41,9 @@ switch($mode) {
 
         $data["message"] = "您已成功更新".$_POST['pname']."的資料-ID為".$_POST['pid']."的資訊，修改了".$stmt->rowCount()."筆資料";
         $data["alert_type"] = "alert-success";
+        $data['useracc'] = $_SESSION['backend_login_acc'];
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
         $tmplFile = 'partial/message.html.twig';
         break;
 
