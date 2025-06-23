@@ -1,0 +1,42 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block content %}
+<style>
+input[readonly] {
+  background-color:rgb(179, 179, 179);
+  border:rgb(205, 205, 205), dashed;
+  cursor: not-allowed;
+}
+</style>
+<div class="row row-cols-md-1">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="switch.php?mode=save_user_data" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+                    <div>
+                        <label>編號</label>
+                        <input type="text" class="form-control" name="id" value="{{result.no}}" readonly>
+                    </div>
+                    <div>
+                        <label>使用者名稱</label>
+                        <input type="text" class="form-control" name="username" value="{{result.user_name}}">
+                    </div>
+                    <div>
+                        <label>登入帳號</label>
+                        <input type="text" class="form-control" name="acc" value="{{result.acc}}">
+                    </div>
+                    <div>
+                        <label>登入密碼</label>
+                        <input type="text" class="form-control" name="pwd" value="{{result.pwd}}">
+                    </div>
+                    <div>
+                        <label>登入身分</label>
+                        <input type="text" class="form-control" name="role" value="{{result.role}}">
+                    </div>
+                    <button type="submit" class="btn btn-success my-4 mx-auto w-50 fs-5" style="padding-top: 10px; padding-bottom:10px;">更新</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
