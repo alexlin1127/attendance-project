@@ -16,26 +16,31 @@
     <div class="d-flex justify-content-end">
     </div>
     <div class="col-12 col-md-6 mt-3 mb-5">
-        <h2 class="text-center my-4 fw-bold">新增使用者</h2>
-        <div class="card">
+        <div class="card mt-4">
+            <div class="card-header bg-primary">
+                <h2 class="text-center my-1 fw-bold text-white" style="letter-spacing: 5px;">新增使用者</h2>
+            </div>
             <div class="card-body">
                 <form method="post" action="switch.php?mode=add_user_data" enctype="multipart/form-data">
                     <div class="m-4">
-                        <label class="fw-bold fs-5 mb-2">使用者名稱</label>
-                        <input type="text" class="form-control" name="username" placeholder="名稱限15字元以內" required>
+                        <label class="fw-bold fs-5 mb-2" for="name">使用者名稱</label>
+                        <input type="text" class="form-control" id='name' name="username" placeholder="名稱限15字元以內" required>
                     </div>
                     <div class="m-4">
-                        <label class="fw-bold fs-5 mb-2">使用者帳號</label>
-                        <input type="email" class="form-control" name="acc" placeholder="請輸入Email" required>
+                        <label class="fw-bold fs-5 mb-2" for="acc">登入帳號</label>
+                        <input type="email" class="form-control" id='acc' name="acc" placeholder="請輸入Email" required>
                     </div>
                     <div class="m-4">
-                        <label class="fw-bold fs-5 mb-2">使用者密碼</label>
-                        <input type="password" class="form-control" name="pwd" required>
+                        <label class="fw-bold fs-5 mb-2" for="pwd">登入密碼</label>
+                        <input type="password" class="form-control" id='pwd' name="pwd" required>
                     </div>
-                    
+                    <div class="m-4">
+                        <label class="fw-bold fs-5 mb-2" for="role">使用者身分</label>
+                        <input type="password" class="form-control" id='role' name="role" placeholder="一般使用者 nor-user // 企業帳號 adv-user" required>
+                    </div>
                     <div class="row me-2">
                         <div class="col-12 col-md-12 d-flex justify-content-end ">
-                            <a href="att_list.php" class="btn btn-outline-success" style="width: 100px; padding:10px;margin-right: 15px;"><strong>返回</strong></a>
+                            <a href="switch.php?mode=acc_manage" class="btn btn-outline-success" style="width: 100px; padding:10px;margin-right: 15px;"><strong>返回</strong></a>
                             <button type="submit" class="btn btn-outline-success" style="width: 100px; padding:10px"><strong>新增</strong></button>
                         </div>
                     </div>  
