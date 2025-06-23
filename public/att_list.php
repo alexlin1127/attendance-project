@@ -1,7 +1,9 @@
 <?php
+session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../inc/twig.inc.php';
 require_once __DIR__ . '/../inc/db.inc.php'; 
+
 
 // 取得所有學員姓名（給下拉選單用）
 $stmt = $pdo->prepare("SELECT name FROM attendance_log GROUP BY name");
@@ -117,7 +119,10 @@ $data['currentPage'] = $page;
 $tmplFile = 'partial/backend/att_list.html.twig';
 
 // Todo: 此處待修改為登入使用者 
-$data['useracc'] = "admin@demo.com";
+$data['useracc'] = $_SESSION['backend_login_acc'];
+
+//判斷登入者為admin或adv-user
+$data['role'] = $_SESSION['backend_login_role'];
 
 
 // 使用 twig 模板引擎渲染

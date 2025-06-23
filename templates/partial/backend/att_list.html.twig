@@ -5,6 +5,7 @@
 <div class="container">
   <div class="row mb-3 align-items-end">
 
+    {% if role == 'admin' %}
     <!-- 新增數據按鈕 -->
     <div class="col-md-2 col-sm-4 mb-3">
       <a href="switch.php?mode=add_data" class="btn btn-outline-secondary w-100">新增數據</a>
@@ -14,7 +15,8 @@
     <div class="col-md-2 col-sm-4 mb-3">
       <a href="switch.php?mode=add_user" class="btn btn btn-outline-success w-100">建立使用者</a>
     </div>
-
+    {% endif %}
+    
     <!-- 查詢表單 -->
     <div class="col-md-8">
       <form method="get" action="att_list.php" class="row g-2">

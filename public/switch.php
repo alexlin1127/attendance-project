@@ -8,8 +8,6 @@ if (isset($_GET['mode']) & $_GET['mode'] != '') {
     $mode = $_GET['mode'];
 }
 
-$data['useracc'] = "admin@demo.com";
-
 switch($mode) {
     //編輯清單
     case 'edit':
@@ -44,39 +42,14 @@ switch($mode) {
 
     case 'show':
         $name = $_GET['name'];
-        $stmt = $pdo->prepare("SELECT name, 
-                                      round(sum(class_hours), 1) as class_hours, 
-                                      round(sum(attended_hours), 1) as attended_hours, 
-                                      round(sum(absent_hours), 1) as absent_hours, 
-                                      round(sum(late_hours), 1) as late_hours, 
-                                      round(sum(leave_early_hours), 1) as leave_early_hours, 
-                                      round((sum(attended_hours) / sum(class_hours)) * 100, 1) as attendance_rate 
-                                      FROM `attendance_log` 
-                                      where name = :name;");
-
+        $stmt = $pdo->prepare("select * from attendance_log where name = :name");
         $stmt->execute([":name" => $name]);
-        $records = $stmt->fetch(PDO::FETCH_ASSOC);
-        $data['chart']['name'] = $name;
-        $data['chart']['class_hours_total'] = $records['class_hours'];
-        $data['chart']['attended_hours_total'] = $records['attended_hours'];
-        $data['chart']['absent_hours_total'] = $records['absent_hours'];
-        $data['chart']['late_hours_total'] = $records['late_hours'];
-        $data['chart']['leave_early_hours_total'] = $records['leave_early_hours'];
-        $data['chart']['attendance_rate'] = $records['attendance_rate'];
-
-        $stmt = $pdo->prepare("SELECT class_date, attended_hours, raw_hours 
-                               FROM `attendance_log` 
-                               WHERE name = :name;");
-        $stmt->execute([":name" => $name]);
-        $data['chart']['rows'] = $stmt->rowCount();
-        $record2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach($record2 as $record) {
-            $data['chart']['class_date'][] = $record['class_date'];
-            $data['chart']['attended_hours'][] = $record['attended_hours'];
-            $data['chart']['raw_hours'][] = $record['raw_hours'];
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data['chart']['date'] = [];
+        
+        foreach($records as $record) {
+            $data['chart']['date'][] = $record['class_date'];
         }
-        $tmplFile = 'partial/backend/show_att.html.twig';
-        echo $twig->render($tmplFile, $data);
         exit();
 
     case 'add_data':
