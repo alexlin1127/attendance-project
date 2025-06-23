@@ -82,9 +82,10 @@
                             <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="switch.php?mode=show&name={{item.name}}" class="btn btn-sm btn-primary">查看</a>
+                                {% if role == 'admin'%}
                                 <a href="switch.php?mode=edit&id={{item.id}}" class="btn btn-sm btn-warning">編輯</a>
                                 <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="{{ item.id }}">刪除</a>
-                              
+                                {% endif %}
                             </div>
                             </td>
                         </tr>

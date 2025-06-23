@@ -28,22 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if (filter_var($acc, FILTER_VALIDATE_EMAIL)) {
         //echo "合法 Email";
-        $stmt = $pdo->prepare("select acc, pwd ,role from admin_user where acc = :acc and pwd = :pwd");
+        $stmt = $pdo->prepare("select acc, pwd ,role, user_name from admin_user where acc = :acc and pwd = :pwd");
         $result = $stmt->execute([
             ":acc" => $acc,
             ":pwd" => md5($pwd)        
         ]);
-        //die("test");
+
         if ($stmt->rowCount() == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $_SESSION['backend_login_flag'] = true;
             $_SESSION['backend_login_acc'] = $acc;
             $_SESSION['backend_login_role'] = $row['role']; // 從資料庫抓取的 role
+            $_SESSION['backend_login_name'] = $row['user_name']; 
             if ($_SESSION['backend_login_role'] == 'admin'|| $_SESSION['backend_login_role'] == 'adv-user') {
-                header("location: att_list.php");
+                header("location: dashboard.php");
+                exit();
             } 
             else {
-                header("location: dashboard.php");
+                header("location: switch.php?mode=show&name=" . $row['user_name']);
+                exit();
             }
             exit;
         } 

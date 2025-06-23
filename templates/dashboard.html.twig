@@ -23,18 +23,19 @@
     </head>
 
     <body>
-
         {# 導航選單 #}
         {% include "partial/nav.inc.twig" %}
 
         {# 主版型 #}
         <main class="container-fluid mt-4">
             <div class="row g-0">
+                {% if role == 'admin' or role == 'adv-user' %}
                 {# 功能清單 #}
                 {% include "partial/backend/menu.html.twig" %}
-
-                {# 主畫面區 #}
                 <div class="col-md-10 bg-light min-vh-100">
+                {% else %}
+                <div class="col-md-12 bg-light min-vh-100">
+                {% endif %}
                     <div class="col col-md-11 ms-5">
                         {% block content %}
                         <div class="row row-cols-md-1 mt-5 mb-3 text-center">
