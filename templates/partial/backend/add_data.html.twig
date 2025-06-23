@@ -26,7 +26,7 @@
                     </div>
                     <div class="m-3">
                         <label class="fw-bold fs-6 mb-1">日期</label>
-                        <input type="text" class="form-control" name="pdate" value="{{result.class_date}}" placeholder="日期格式範例:2025-04-14" required>
+                        <input type="text" class="form-control" name="pdate" value="{{result.class_date}}" placeholder="範例：2025-04-14" required>
                     </div>
                     <div class="m-3">
                         <label class="fw-bold fs-6 mb-1">當日總課程時數（請輸入數字）</label>
@@ -48,7 +48,11 @@
                         <label class="fw-bold fs-6 mb-1">缺席時數（請輸入數字）</label>
                         <input type="number" class="form-control" name="pabs" value="{{result.absent_hours}}" min="0" max="7" required>
                     </div>
-                    <button type="submit" class="btn btn-success m-3">新增</button>
+                    <div class="row">
+                        <div class="col-12 col-md-12 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success m-3 w-50 py-3">新增</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

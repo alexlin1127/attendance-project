@@ -1,0 +1,41 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block content %}
+{% if flag == false %}
+    <div class="row row-cols-md-1">
+        <div class="col">
+            <div class="alert {{alert_type}} alert-dismissible fade show" role="alert">
+                <div>{{ message | raw }}</div>
+                <a type="button" href="#" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-6 mt-3 mb-5">
+        <h2 class="text-center my-4 fw-bold">新增使用者</h2>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="switch.php?mode=add_user_data" enctype="multipart/form-data">
+                    <div class="m-4">
+                        <label class="fw-bold fs-5 mb-2">使用者帳號</label>
+                        <input type="email" class="form-control" name="acc" placeholder="請輸入Email" required>
+                    </div>
+                    <div class="m-4">
+                        <label class="fw-bold fs-5 mb-2">使用者密碼</label>
+                        <input type="password" class="form-control" name="pwd" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 col-md-12 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success m-3 w-75">新增</button>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

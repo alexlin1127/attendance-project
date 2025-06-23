@@ -142,6 +142,30 @@ switch($mode) {
         $data["alert_type"] = "alert-success";
         $tmplFile = 'partial/message.html.twig';
         break;
+
+    case 'add_user':
+        $data['flag'] = true;
+        $tmplFile = 'partial/backend/add_user.html.twig';
+        echo $twig->render($tmplFile, $data);
+        exit();
+
+    // 新增使用者
+    case 'add_user_data':
+        // 取得所有學員名稱
+        $acc = $_POST['acc'];
+        $pwd = $_POST['pwd'];
+        $stmt = $pdo->prepare('INSERT INTO admin_user (acc, pwd, role) VALUES (:acc, MD5(:pwd), :role)');
+        $stmt->execute([
+            ":acc" => $acc,
+            ":pwd" => $pwd,
+            ":role" => 'nor_user'
+        ]);
+    
+
+        $data["message"] = "您已成功新增使用者" . $acc;
+        $data["alert_type"] = "alert-success";
+        $tmplFile = 'partial/message.html.twig';
+        break;
     
 
     case 'deldata':    
@@ -155,7 +179,18 @@ switch($mode) {
         $data["alert_type"] = "alert-warning";
         $tmplFile = 'partial/message.html.twig';
         break;
-
+    
+    case 'export_data':    
+        // $stmt = $pdo->prepare("delete from attendance_log where id = :id");
+        // $stmt->execute(
+        //     [
+        //      ":id"=>$_GET['id']
+        //     ]
+        // );
+        $data["message"] = "您已成功刪除資料-ID為".$_GET['id']."的資訊";
+        $data["alert_type"] = "alert-warning";
+        $tmplFile = 'partial/message.html.twig';
+        break;
         
 }
 
