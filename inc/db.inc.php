@@ -3,13 +3,13 @@
     // 連線設定
     $host = 'localhost';        
     $dbName = 'myatt';  
-    $username = 'myattdb';      
-    $password = '16d7a4fca7442dda3ad93c9a726597e4';          
+    $username = 'Ting';      
+    $password = 'BCxZf4zkuT_]CA9h';          
     $charset = 'utf8mb4';
-    $port = '3308';
+    // $port = '3308';
 
-    // DSN (Data Source Name)
-    $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset={$charset}";
+    // DSN (Data Source Name);port={$port}
+    $dsn = "mysql:host={$host};dbname={$dbName};charset={$charset}";
 
     // PDO 連接選項
     $options = [
