@@ -15,10 +15,6 @@ session_destroy();//清空session
 ?>
 
 <body>
-
-    <!-- 帳號已登出<br>
-    <a href="login.php">重新登入</a> -->
-    
 </body>
 
 </html>
