@@ -220,19 +220,18 @@ switch($mode) {
         break;
 
     case 'acc_manage':
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
         $stmt = $pdo->prepare("SELECT no, acc, pwd, role, user_name FROM `admin_user`;");
         $stmt->execute();
         $acc_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // print_r($acc_result);
+
         foreach($acc_results as $acc) {
-            print_r($acc);
-            
-          
+            $data['user'][] = $acc;
         }
         $tmplFile = 'partial/backend/acc_manage.html.twig';
-        // echo $twig->render($tmplFile, $data);
+        echo $twig->render($tmplFile, $data);
         exit();
-        
 }
 
 echo $twig->render($tmplFile, $data);
