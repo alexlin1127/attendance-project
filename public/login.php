@@ -69,4 +69,3 @@ echo $twig->render('login.html.twig',
         "alert_type" => $alert_type
     ]
 );
-?>
