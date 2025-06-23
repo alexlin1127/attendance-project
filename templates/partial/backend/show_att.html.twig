@@ -2,11 +2,11 @@
 
 {% block content %}
 {% if role == 'admin' or role == 'adv-user' %}
-<div class="row row-cols-1 row-cols-md-6 mt-3 d-flex justify-content-end">
+<div class="row row-cols-1 row-cols-md-6 mt-5 d-flex justify-content-end">
     <a href="att_list.php" class="btn btn-success">查看其他</a>
 </div>
 {% endif %}
-<div class="row row-cols-1 row-cols-md-1 mt-5 mb-3">
+<div class="row row-cols-1 row-cols-md-1 my-3">
     <div class="col text-center">
         <div id="student_name" style="font-size: 2rem; font-weight: 600; padding-bottom: 30px; padding-left: 20px">學員姓名： {{chart.name}}</div>
     </div>
@@ -17,44 +17,44 @@
         <div class="row row-cols-1 row-cols-md-2" id="attendance-card">
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">總課程時數</div>
-                    <div class="card-body" id="class_hours" style="font-size: 1.6rem">{{chart.class_hours_total}} hr</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">總課程時數</div>
+                    <div class="card-body text-primary fs-2 fw-bold" id="class_hours" style="font-size: 1.6rem">{{chart.class_hours_total}} hr</div>
                 </div>
             </div>
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">總計算天數</div>
-                    <div class="card-body" id="class_hours" style="font-size: 1.6rem">{{chart.rows}} 天</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">總計算天數</div>
+                    <div class="card-body text-secondary fs-2 fw-bold" id="class_hours" style="font-size: 1.6rem">{{chart.rows}} 天</div>
                 </div>
             </div>
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">實際上課時數</div>
-                    <div class="card-body" id="attended_hours" style="font-size: 1.6rem">{{chart.attended_hours_total}} hr</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">實際上課時數</div>
+                    <div class="card-body text-primary fs-2 fw-bold" id="attended_hours" style="font-size: 1.6rem">{{chart.attended_hours_total}} hr</div>
                 </div>
             </div>
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">缺席時數</div>
-                    <div class="card-body" id="absent_hours" style="font-size: 1.6rem">{{chart.absent_hours_total}} hr</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">缺席時數</div>
+                    <div class="card-body text-danger fs-2 fw-bold" id="absent_hours" style="font-size: 1.6rem">{{chart.absent_hours_total}} hr</div>
                 </div>
             </div>
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">遲到時數</div>
-                    <div class="card-body" id="late_hours" style="font-size: 1.6rem">{{chart.late_hours_total}} hr</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">遲到時數</div>
+                    <div class="card-body text-warning fs-2 fw-bold" id="late_hours" style="font-size: 1.6rem">{{chart.late_hours_total}} hr</div>
                 </div>
             </div>
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">早退時數</div>
-                    <div class="card-body" id="leave_early_hours" style="font-size: 1.6rem">{{chart.leave_early_hours_total}} hr</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">早退時數</div>
+                    <div class="card-body text-warning fs-2 fw-bold" id="leave_early_hours" style="font-size: 1.6rem">{{chart.leave_early_hours_total}} hr</div>
                 </div>
             </div>
             <div class="col mb-3">
                 <div class="card text-center pt-1 border-info shadow">
-                    <div class="card-title" style="font-size: 1.2rem; font-weight: 600">出勤比率</div>
-                    <div class="card-body" id="attendance_rate" style="font-size: 1.6rem">{{chart.attendance_rate}} %</div>
+                    <div class="card-title mt-2" style="font-size: 1.5rem; font-weight: 600">出勤比率</div>
+                    <div class="card-body text-primary fs-2 fw-bold" id="attendance_rate" style="font-size: 1.6rem">{{chart.attendance_rate}} %</div>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
     <div class="col-12 col-md-6 mb-5 pb-4">
         <div class="card text-center pt-3 border-info shadow">
             <div class="card-body">
-                <div class="card-title pb-4" style="font-size: 1.2rem; font-weight: 600">出席狀況</div>
+                <div class="card-title pb-4" style="font-size: 1.5rem; font-weight: 600">出席狀況</div>
                 <canvas id="attendance"></canvas>
             </div>
         </div>
@@ -73,7 +73,7 @@
     <div class="col">
         <div class="card text-center pt-3 border-info shadow">
             <div class="card-body">
-                <div class="card-title pb-4" style="font-size: 1.2rem; font-weight: 600">每日上課時數</div>
+                <div class="card-title pb-4" style="font-size: 1.5rem; font-weight: 600">每日上課時數</div>
                 <canvas id="attendance_hours" width="400" height="200"></canvas>
             </div>
         </div>
@@ -81,7 +81,7 @@
     <div class="col">
         <div class="card text-center pt-3 border-info shadow">
             <div class="card-body">
-                <div class="card-title pb-4" style="font-size: 1.2rem; font-weight: 600">每日在校時數</div>
+                <div class="card-title pb-4" style="font-size: 1.5rem; font-weight: 600">每日在校時數</div>
                 <canvas id="raw_hours" width="400" height="200"></canvas>
             </div>
         </div>

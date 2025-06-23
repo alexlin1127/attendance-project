@@ -189,15 +189,19 @@ switch($mode) {
         // 取得所有學員名稱
         $acc = $_POST['acc'];
         $pwd = $_POST['pwd'];
-        $stmt = $pdo->prepare('INSERT INTO admin_user (acc, pwd, role) VALUES (:acc, MD5(:pwd), :role)');
+        $username = $_POST['username'];
+        $stmt = $pdo->prepare('INSERT INTO admin_user (acc, pwd, role, user_name) VALUES (:acc, MD5(:pwd), :role, :name)');
         $stmt->execute([
             ":acc" => $acc,
             ":pwd" => $pwd,
-            ":role" => 'nor_user'
+            ":role" => 'nor_user',
+            ":name" => $username
         ]);
     
 
         $data["message"] = "您已成功新增使用者" . $acc;
+        $data['role'] = $_SESSION['backend_login_role'];
+        $data['username'] = $_SESSION['backend_login_name'];
         $data["alert_type"] = "alert-success";
         $tmplFile = 'partial/message.html.twig';
         break;
@@ -214,6 +218,20 @@ switch($mode) {
         $data["alert_type"] = "alert-warning";
         $tmplFile = 'partial/message.html.twig';
         break;
+
+    case 'acc_manage':
+        $stmt = $pdo->prepare("SELECT no, acc, pwd, role, user_name FROM `admin_user`;");
+        $stmt->execute();
+        $acc_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // print_r($acc_result);
+        foreach($acc_results as $acc) {
+            print_r($acc);
+            
+          
+        }
+        $tmplFile = 'partial/backend/acc_manage.html.twig';
+        // echo $twig->render($tmplFile, $data);
+        exit();
         
 }
 
