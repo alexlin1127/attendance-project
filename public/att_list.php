@@ -28,20 +28,25 @@ $offset = ($page - 1) * $perPage;
 // 篩選條件和參數
 $where = [];
 $params = [];
+$whereSql = '';
 
 if (!empty($selected_name)) {
-    $where[] = "name = :sname";
+    $where['name'] = "name = :sname";
     $params[':sname'] = $selected_name;
 }
 
 if (!empty($start_date)) {
-    $where[] = "class_date >= :start";
+    $where['start_date'] = "class_date >= :start";
     $params[':start'] = $start_date ; 
 }
 
 if (!empty($end_date)) {
-    $where[] = "class_date <= :end";
+    $where['end_date'] = "class_date <= :end";
     $params[':end'] = $end_date ;
+}
+
+if ($where) {
+    $whereSql = implode(' AND ', $where);
 }
 
 //end_date需比start_date大
@@ -69,19 +74,9 @@ if (!empty($end_date))  {
 
 $data['queryString'] = http_build_query($query);
 
-
 // 篩選後的總筆數
 $sqlCount = "SELECT COUNT(*) as total FROM attendance_log";
-if ($where) {
-    $sqlCount .= " WHERE " . implode(" AND ", $where);
-}
-
 $stmt = $pdo->prepare($sqlCount);
-
-foreach ($params as $key => $val) {
-    $stmt->bindValue($key, $val);
-}
-
 $stmt->execute();
 $total = $stmt->fetch();
 $totalCount = $total['total'];
@@ -91,9 +86,20 @@ $totalPages = ceil($totalCount / $perPage);
 
 // 查詢分頁資料
 $sql = "SELECT * FROM attendance_log";
-
-if ($where) {
-    $sql .= " WHERE " . implode(" AND ", $where);
+if ($whereSql) {
+    $sql .= " WHERE " . $whereSql;
+}
+$stmt = $pdo->prepare($sql);
+foreach ($params as $key => $val) {
+    $stmt->bindValue($key, $val);
+}
+$stmt->execute();
+$filteredData = $stmt->fetchAll();
+if (isset($_GET['download']) && $_GET['download'] == 1) {
+    header('Content-Type: application/json');
+    header('Content-Disposition: attachment; filename="reports.json"');
+    echo json_encode($filteredData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    exit;
 }
 
 $sql .= " LIMIT :offset, :perPage";
@@ -120,9 +126,8 @@ $tmplFile = 'partial/backend/att_list.html.twig';
 
 // Todo: 此處待修改為登入使用者 
 $data['useracc'] = $_SESSION['backend_login_acc'];
-
-//判斷登入者為admin或adv-user
 $data['role'] = $_SESSION['backend_login_role'];
+$data['username'] = $_SESSION['backend_login_name'];
 
 
 // 使用 twig 模板引擎渲染

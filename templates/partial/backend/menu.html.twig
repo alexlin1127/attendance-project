@@ -1,15 +1,23 @@
 <div class="col-md-2">
     <div class="row row-cols-1">
         <div class="list-group list-group-flush">
-            <h4 class="list-group-item active text-center bg-info">功能選單</h4>
+            <h4 class="list-group-item active bg-info">功能選單</h4>
             <a
                 href="att_list.php"
-                class="list-group-item list-group-item-action text-center fw-bold fs-5">
+                class="list-group-item list-group-item-action text-start fw-bold fs-5">
                 出缺席記錄查詢
             </a>
-            <a
-                href="bk-product.php?mode=viewcart"
-                class="list-group-item list-group-item-action text-center fw-bold fs-5 border-bottom">
+            {% if role == 'admin' %}
+                <a href="switch.php?mode=add_user" class="list-group-item list-group-item-action text-start fw-bold fs-5">
+                    新增使用者
+                </a>
+                <a href="switch.php?mode=acc_manage" class="list-group-item list-group-item-action text-start fw-bold fs-5">
+                    帳號管理
+                </a>
+            {% endif %}
+            <a  
+                href="att_list.php?{{ queryString }}&download=1"
+                class="list-group-item list-group-item-action text-start fw-bold fs-5 border-bottom">
                 匯出報表
             </a>
         </div>

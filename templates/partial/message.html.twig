@@ -9,5 +9,9 @@
         </div>
     </div>
 </div>
-<a href='att_list.php' class="btn btn-dark">回到學員資料</a>
+{% if transition == 'user' %}
+<a href='switch.php?mode=acc_manage' class="btn btn-outline-dark">返回帳號管理區</a>
+{% else %}
+<a href='att_list.php' class="btn btn-outline-dark">回到學員資料</a>
+{% endif %}
 {% endblock %}

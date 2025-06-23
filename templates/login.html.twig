@@ -11,39 +11,32 @@
 	</head>
 
 	<body>
-
-		{# 導航選單 #}
-		{% include "partial/nav.inc.twig" %}
-
 		{# 主版型 #}
-		<main class="container-fluid mt-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-12 col-sm-12 col-md-4 offset-md-4 my-5">
-						<h4>登入/註冊</h4>
-						<div class="card shadow-sm">
-							<div class="card-header text-white bg-primary ">登入系統</div>
-							<div class="card-body">
-								{% if message %}
-									<div class="alert {{alert_type}} alert-dismissible fade show" role="alert">
-										{{message}}
-										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-									</div>
-								{% endif %}
-								<form method="post" action="">
-									<div class="mb-3">
-										<label for="foraccount" class="form-label">登入帳號</label>
-										<input type="text" class="form-control" name="account" id="account" placeholder="請輸入email格式的帳號" required>
-									</div>
-									<div class="mb-3">
-										<label for="forpasswd" class="form-label">登入密碼</label>
-										<input type="password" class="form-control" id="passwd" name="passwd" placeholder="請輸入密碼" required>
-									</div>
-									<div class="mb-3">
-										<button type="submit" class="btn btn-primary">登入</button>
-									</div>
-								</form>
-							</div>
+		<main class="container-fluid mt-5">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-4 offset-md-4 my-5">
+					<div class="card shadow-sm">
+						<div class="card-header text-white bg-primary text-center fs-4 fw-bold">產尖全端班出缺勤管理系統</div>
+						<div class="card-body">
+							{% if message %}
+								<div class="alert {{alert_type}} alert-dismissible fade show" role="alert">
+									{{message}}
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							{% endif %}
+							<form method="post" action="">
+								<div class="mb-3 d">
+									<label for="foraccount" class="form-label fs-5">使用者帳號</label>
+									<input type="text" class="form-control" name="account" id="account" placeholder="請輸入電子郵件信箱" required>
+								</div>
+								<div class="mb-3 d">
+									<label for="forpasswd" class="form-label fs-5">密碼</label>
+									<input type="password" class="form-control" id="passwd" name="passwd" required>
+								</div>
+								<div class="mb-3 d-flex justify-content-center">
+									<button type="submit" class="btn btn-primary mt-4 w-75">登入</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

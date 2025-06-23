@@ -3,56 +3,51 @@
 {% block content %}
 <h3 class="mt-3">學員資料</h3>
 <div class="container">
-  <div class="row mb-3 align-items-end">
+	<div class="row mb-3 align-items-end">
 
-    {% if role == 'admin' %}
-    <!-- 新增數據按鈕 -->
-    <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_data" class="btn btn-outline-secondary w-100">新增數據</a>
-    </div>
+		{% if role == 'admin' %}
+		<!-- 新增數據按鈕 -->
+		<div class="col-md-2 col-sm-4 mb-3">
+		<a href="switch.php?mode=add_data" class="btn btn-outline-secondary w-100">新增數據</a>
+		</div>
+		{% endif %}
+		
+		<!-- 查詢表單 -->
+		<div class="col-md-10">
+		<form method="get" action="att_list.php" class="row g-2">
+			<div class="col-md-4">
+			<label class="form-label">學員姓名</label>
+			<select name="student_name" class="form-select">
+				<option value="">全部學員</option>
+				{% for student in students %}
+				<option value="{{ student.name }}" {{ student.name == selected_name ? 'selected' : '' }}>
+					{{ student.name }}
+				</option>
+				{% endfor %}
+			</select>
+			</div>
 
-    <!-- 建立使用者按鈕 -->
-    <div class="col-md-2 col-sm-4 mb-3">
-      <a href="switch.php?mode=add_user" class="btn btn btn-outline-success w-100">建立使用者</a>
-    </div>
-    {% endif %}
-    
-    <!-- 查詢表單 -->
-    <div class="col-md-8">
-      <form method="get" action="att_list.php" class="row g-2">
-        <div class="col-md-4">
-          <label class="form-label">學員姓名</label>
-          <select name="student_name" class="form-select">
-            <option value="">全部學員</option>
-            {% for student in students %}
-              <option value="{{ student.name }}" {{ student.name == selected_name ? 'selected' : '' }}>
-                {{ student.name }}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
+			<div class="col-md-3">
+			<label class="form-label">開始日期</label>
+			<input type="date" name="start_date" value="{{ start_date|default('') }}" class="form-control">
+			</div>
 
-        <div class="col-md-3">
-          <label class="form-label">開始日期</label>
-          <input type="date" name="start_date" value="{{ start_date|default('') }}" class="form-control">
-        </div>
+			<div class="col-md-3">
+			<label class="form-label">結束日期</label>
+			<input type="date" name="end_date" value="{{ end_date|default('') }}" class="form-control {% if dateError %}is-invalid{% endif %}">
+			{% if dateError %}
+			<div class="invalid-feedback">開始日期不能晚於結束日期</div>
+			{% endif %}
+			</div>
 
-        <div class="col-md-3">
-          <label class="form-label">結束日期</label>
-          <input type="date" name="end_date" value="{{ end_date|default('') }}" class="form-control {% if dateError %}is-invalid{% endif %}">
-           {% if dateError %}
-          <div class="invalid-feedback">開始日期不能晚於結束日期</div>
-          {% endif %}
-        </div>
-
-        <div class="col-md-2">
-          <label class="form-label d-block invisible">搜尋</label>
-          <button type="submit" class="btn btn-dark w-100">搜尋</button>
-        </div>
-      </form>
-    </div>
-    
-  </div>
+			<div class="col-md-2">
+			<label class="form-label d-block invisible">搜尋</label>
+			<button type="submit" class="btn btn-dark w-100">搜尋</button>
+			</div>
+		</form>
+		</div>
+		
+	</div>
 </div>
 <div class="row mb-5">
     <div class="col-12 col-sm-12 col-md-12">
@@ -82,9 +77,10 @@
                             <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="switch.php?mode=show&name={{item.name}}" class="btn btn-sm btn-primary">查看</a>
+                                {% if role == 'admin'%}
                                 <a href="switch.php?mode=edit&id={{item.id}}" class="btn btn-sm btn-warning">編輯</a>
                                 <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="{{ item.id }}">刪除</a>
-                              
+                                {% endif %}
                             </div>
                             </td>
                         </tr>
@@ -97,58 +93,58 @@
 </div>
 {# 頁碼 #}
 <nav class="d-flex align-items-center justify-content-center mb-5">
-  <ul class="pagination">
-  <li class="page-item">
-      <a class="page-link" href="?page=1&{{ queryString }}">至第一頁</a>
-    </li>
-   {# 上一頁按鈕 #}
-    <li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
-      <a class="page-link" href="?page={{ prevpage }}&{{ queryString }}">上一頁</a>
-    </li>
-    {# 目前頁數為中心、前後最多 2 頁 #}
-    {% set startPage = currentPage - 2 > 0 ? currentPage - 2 : 1 %}
-    {% set endPage = currentPage + 2 < totalPages ? currentPage + 2 : totalPages%}
-    {% for p in startPage..endPage %}
-      <li class="page-item {% if p == currentPage %}active{% endif %}">
-        <a class="page-link" href="?page={{ p }}&{{ queryString }}">{{ p }}</a>
-      </li>
-    {% endfor %}
-    {# 下一頁按鈕 #}
-    <li class="page-item {% if currentPage == totalPages %}disabled{% endif %}">
-      <a class="page-link" href="?page={{ nextpage }}&{{ queryString }}">下一頁</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="?page={{ totalPages }}&{{ queryString }}">至最終頁</a>
-    </li>
-    <li class="page-item disabled">
-      <span class="page-link">第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁</span>
-    </li>
-  </ul>
+	<ul class="pagination">
+	<li class="page-item">
+		<a class="page-link" href="?page=1&{{ queryString }}">至第一頁</a>
+		</li>
+		{# 上一頁按鈕 #}
+		<li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
+		<a class="page-link" href="?page={{ prevpage }}&{{ queryString }}">上一頁</a>
+		</li>
+		{# 目前頁數為中心、前後最多 2 頁 #}
+		{% set startPage = currentPage - 2 > 0 ? currentPage - 2 : 1 %}
+		{% set endPage = currentPage + 2 < totalPages ? currentPage + 2 : totalPages%}
+		{% for p in startPage..endPage %}
+		<li class="page-item {% if p == currentPage %}active{% endif %}">
+			<a class="page-link" href="?page={{ p }}&{{ queryString }}">{{ p }}</a>
+		</li>
+		{% endfor %}
+		{# 下一頁按鈕 #}
+		<li class="page-item {% if currentPage == totalPages %}disabled{% endif %}">
+			<a class="page-link" href="?page={{ nextpage }}&{{ queryString }}">下一頁</a>
+		</li>
+		<li class="page-item">
+			<a class="page-link" href="?page={{ totalPages }}&{{ queryString }}">至最終頁</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link">第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁</span>
+		</li>
+	</ul>
 </nav>
 
 {# modal #}
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="get" action="switch.php">
-        <div class="modal-header">
-          <h5 class="modal-title" id="confirmModalLabel">確認刪除</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
-        </div>
-        <div class="modal-body">
-          確定要刪除這筆資料嗎？
-        </div>
-        {# 將mode=deldata傳url #}
-        <input type="hidden" name="mode" value="deldata">
-        {# 將id=選擇的id傳入，以js寫入 #}
-        <input type="hidden" name="id" id="delete-id">
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-danger">確定刪除</button>
-        </div>
-      </form>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<form method="get" action="switch.php">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmModalLabel">確認刪除</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+			</div>
+			<div class="modal-body">
+			確定要刪除這筆資料嗎？
+			</div>
+			{# 將mode=deldata傳url #}
+			<input type="hidden" name="mode" value="deldata">
+			{# 將id=選擇的id傳入，以js寫入 #}
+			<input type="hidden" name="id" id="delete-id">
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+			<button type="submit" class="btn btn-danger">確定刪除</button>
+			</div>
+		</form>
+		</div>
+	</div>
 </div>
 
 {% endblock %}
@@ -156,9 +152,9 @@
 <script>
 {# bs提供 Modal 彈出前觸發事件show.bs.modal，觸發元素relatedTarget#}
 document.getElementById('confirmDeleteModal').addEventListener('show.bs.modal', function (event) {
-  const button = event.relatedTarget;
-  const id = button.getAttribute('data-id');
-  document.getElementById('delete-id').value = id;
+	const button = event.relatedTarget;
+	const id = button.getAttribute('data-id');
+	document.getElementById('delete-id').value = id;
 });
 </script>
 

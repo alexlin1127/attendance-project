@@ -16,39 +16,50 @@
 
 <div class="row row-cols-md-1">
     <div class="col">
-        <h2 class="text-center my-4 fw-bold">新增學員出缺勤紀錄</h2>
-        <div class="card">
+        <div class="card mt-3">
+            <div class="card-header bg-success">
+                <h2 class="text-center text-white fw-bold">新增學員出缺勤紀錄</h2>
+            </div>
             <div class="card-body">
                 <form method="post" action="switch.php?mode=add_stdata" enctype="multipart/form-data">
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">姓名</label>
-                        <input type="text" class="form-control" name="pname" value="{{result.name}}" placeholder="請輸入學員英文名" required>
+                    <div class="row row-cols-sm-1 row-cols-md-2">
+                        <div class="col">
+                            <div class="m-3 mb-5">
+                                <label class="fw-bold fs-5 mb-2">姓名</label>
+                                <input type="text" class="form-control" name="pname" value="{{result.name}}" placeholder="請輸入學員英文名" required>
+                            </div>
+                            <div class="m-3 mb-5">
+                                <label class="fw-bold fs-5 mb-2">日期</label>
+                                <input type="text" class="form-control" name="pdate" value="{{result.class_date}}" placeholder="範例：2025-04-14" required>
+                            </div>
+                            <div class="m-3 mb-5">
+                                <label class="fw-bold fs-5 mb-2">當日總課程時數（請輸入數字）</label>
+                                <input type="number" class="form-control" name="pclass" value="{{result.attended_hours}}" min="3" max="7" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="m-3">
+                                <label class="fw-bold fs-5 mb-2">出席時數（請輸入數字）</label>
+                                <input type="number" class="form-control" name="patt" value="{{result.attended_hours}}" min="0" max="7" required>
+                            </div>
+                            <div class="m-3">
+                                <label class="fw-bold fs-5 mb-2">遲到時數（請輸入數字）</label>
+                                <input type="number" class="form-control" name="plate" value="{{result.late_hours}}" min="0" max="1" required>
+                            </div>
+                            <div class="m-3">
+                                <label class="fw-bold fs-5 mb-2">早退時數（請輸入數字）</label>
+                                <input type="number" class="form-control" name="pleave" value="{{result.leave_early_hours}}" min="0" max="1" required>
+                            </div>
+                            <div class="m-3">
+                                <label class="fw-bold fs-5 mb-2">缺席時數（請輸入數字）</label>
+                                <input type="number" class="form-control" name="pabs" value="{{result.absent_hours}}" min="0" max="7" required>
+                            </div>
+                        <div>
                     </div>
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">日期</label>
-                        <input type="text" class="form-control" name="pdate" value="{{result.class_date}}" placeholder="日期格式範例:2025-04-14" required>
+                    <div class="d-flex justify-content-end gap-3 mt-5 mb-2 me-3">
+                        <a href="att_list.php" class="btn btn-outline-success py-3 px-5">返回</a>
+                        <button type="submit" class="btn btn-outline-success py-3 px-5">新增</button>
                     </div>
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">當日總課程時數（請輸入數字）</label>
-                        <input type="number" class="form-control" name="pclass" value="{{result.attended_hours}}" min="3" max="7" required>
-                    </div>
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">出席時數（請輸入數字）</label>
-                        <input type="number" class="form-control" name="patt" value="{{result.attended_hours}}" min="0" max="7" required>
-                    </div>
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">遲到時數（請輸入數字）</label>
-                        <input type="number" class="form-control" name="plate" value="{{result.late_hours}}" min="0" max="1" required>
-                    </div>
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">早退時數（請輸入數字）</label>
-                        <input type="number" class="form-control" name="pleave" value="{{result.leave_early_hours}}" min="0" max="1" required>
-                    </div>
-                    <div class="m-3">
-                        <label class="fw-bold fs-6 mb-1">缺席時數（請輸入數字）</label>
-                        <input type="number" class="form-control" name="pabs" value="{{result.absent_hours}}" min="0" max="7" required>
-                    </div>
-                    <button type="submit" class="btn btn-success m-3">新增</button>
                 </form>
             </div>
         </div>

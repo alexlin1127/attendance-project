@@ -23,76 +23,77 @@
     </head>
 
     <body>
-
         {# 導航選單 #}
         {% include "partial/nav.inc.twig" %}
 
         {# 主版型 #}
-        <main class="container-fluid mt-4">
+        <main class="container-fluid">
             <div class="row g-0">
+                {% if role == 'admin' or role == 'adv-user' %}
                 {# 功能清單 #}
                 {% include "partial/backend/menu.html.twig" %}
-
-                {# 主畫面區 #}
-                <div class="col-md-10 bg-light">
+                <div class="col-md-10 bg-light min-vh-100">
+                {% else %}
+                <div class="col-md-12 bg-light min-vh-100">
+                {% endif %}
                     <div class="col col-md-11 ms-5">
                         {% block content %}
                         <div class="row row-cols-md-1 mt-5 mb-3 text-center">
-                            <h3 style="font-weight: 600; font-size: 2rem">產尖全端班學員出缺席統計</h3>
+                            <h3 style="font-weight: 600; font-size: 2.3rem">產尖全端班學員出缺席統計</h3>
                         </div>
-                        <div class="row row-cols-md-1 mt-5 mb-3">
+                        <div class="row row-cols-md-1 mt-4 mb-3">
                             <div class="col">
                                 <div class="card shadow-sm border-0">
                                     <div class="card-body d-flex">
                                         <div
                                             class="col text-center d-flex justify-content-between align-items-center me-5">
                                             <div class="fw-bold fs-5">總出席率</div>
-                                            <div class="display-5 fw-bold text-success">{{chart.attend_rate}}%</div>
+                                            <div class="display-5 text-success" style="font-weight: 600">{{chart.attend_rate}}%</div>
                                         </div>
                                         <div
                                             class="col text-center d-flex justify-content-between align-items-center me-5">
                                             <div class="fw-bold fs-5">總遲到率</div>
-                                            <div class="display-5 fw-bold text-danger">{{chart.late_rate}}%</div>
+                                            <div class="display-5 text-danger" style="font-weight: 600">{{chart.late_rate}}%</div>
                                         </div>
                                         <div class="col text-center d-flex justify-content-between align-items-center">
                                             <div class="fw-bold fs-5">總早退率</div>
-                                            <div class="display-5 fw-bold text-warning">{{chart.early_rate}}%</div>
+                                            <div class="display-5 text-warning" style="font-weight: 600">{{chart.early_rate}}%</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row row-cols-md-2">
+                        <div class="row row-cols-md-4" style="padding-top: 20px; padding-bottom: 20px;">
                             <div class="col my-2">
                                 <div class="card shadow-sm border-0">
                                     <div class="card-body text-center">
-                                        <h3 class="fw-bold mb-4 mt-2 display-8">總課程時數</h3>
-                                        <span class="text-info display-4"><strong>{{chart.class_hours}} hr</strong></span>
+                                        <h3 class="fw-bold mb-4 mt-2 fs-5">總課程時數</h3>
+                                        <span class="text-info display-5" style="font-weight: 600"><strong>{{chart.class_hours}} hr</strong></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col my-2">
                                 <div class="card shadow-sm border-0">
                                     <div class="card-body text-center">
-                                        <h3 class="fw-bold mb-4 mt-2 display-8">總課程數</h3>
-                                        <span class="text-success display-4"><strong>{{chart.class_num}} 堂</strong></span>
+                                        <h3 class="fw-bold mb-4 mt-2 fs-5">總課程數</h3>
+                                        <span class="text-success display-5" style="font-weight: 600"><strong>{{chart.class_num}} 堂</strong></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col my-2">
                                 <div class="card shadow-sm border-0">
                                     <div class="card-body text-center">
-                                        <h3 class="fw-bold mb-4 mt-2 display-8">總天數</h3>
-                                        <span class="text-primary display-4"><strong>{{chart.days}} 天</strong></span>
+                                        <h3 class="fw-bold mb-4 mt-2 fs-5">總天數</h3>
+                                        <span class="text-primary display-5" style="font-weight: 600"><strong>{{chart.days}} 天</strong></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col my-2">
                                 <div class="card shadow-sm border-0">
                                     <div class="card-body text-center">
-                                        <h3 class="fw-bold mb-4 mt-2 display-8">平均到校時數</h3>
-                                        <span class="text-warning display-4"><strong>{{chart.raw_rate}} hr</strong></span>
+                                        <h3 class="fw-bold mb-4 mt-2 fs-5">平均到校時數</h3>
+                                        <span class="text-warning display-5" style="font-weight: 600"><strong>{{chart.raw_rate}} hr</strong></span>
                                     </div>
                                 </div>
                             </div>

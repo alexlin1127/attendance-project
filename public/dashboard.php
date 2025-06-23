@@ -11,6 +11,9 @@ if (isset($_SESSION['backend_login_flag']) && $_SESSION['backend_login_flag'] ==
 }
 
 $data['useracc'] = $_SESSION['backend_login_acc'];
+$data['role'] = $_SESSION['backend_login_role'];
+$data['username'] = $_SESSION['backend_login_name'];
+
 
 
 // 取得總課程時數
