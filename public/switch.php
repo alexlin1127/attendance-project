@@ -243,7 +243,7 @@ switch($mode) {
         $stmt->execute([":id" => $id]);
         $data['result'] = $stmt->fetch();
         if ($_GET['status'] === 'reset') {
-           $data['result']['pwd'] = 'fs101';
+           $data['result']['pwd'] = 'test1234';
         } 
         $tmplFile = 'partial/backend/edit_user.html.twig';
         break;
