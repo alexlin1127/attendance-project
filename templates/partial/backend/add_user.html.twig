@@ -36,7 +36,11 @@
                     </div>
                     <div class="m-4">
                         <label class="fw-bold fs-5 mb-2" for="role">使用者身分</label>
-                        <input type="password" class="form-control" id='role' name="role" placeholder="一般使用者 nor-user // 企業帳號 adv-user" required>
+                        <select class="form-control" id="role" name="role" required>
+                            <option value="">請選擇身分</option>
+                            <option value="nor-user">一般使用者</option>
+                            <option value="adv-user">企業帳號</option>
+                        </select>
                     </div>
                     <div class="row me-2">
                         <div class="col-12 col-md-12 d-flex justify-content-end ">
