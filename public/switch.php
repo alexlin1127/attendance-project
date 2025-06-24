@@ -184,18 +184,15 @@ switch($mode) {
         $stmt->execute();
         $nameArray = $stmt->fetchAll(PDO::FETCH_COLUMN);
         $data['transition'] = 'user';
-        $acc = $_POST['acc'];
-        $pwd = $_POST['pwd'];
-        $username = $_POST['username'];
         $stmt = $pdo->prepare('INSERT INTO admin_user (acc, pwd, role, user_name) VALUES (:acc, MD5(:pwd), :role, :name)');
         $stmt->execute([
-            ":acc" => $acc,
-            ":pwd" => $pwd,
-            ":role" => 'nor_user',
-            ":name" => $username
+            ":acc" => $_POST['acc'],
+            ":pwd" => $_POST['pwd'],
+            ":role" => $_POST['role'],
+            ":name" => $_POST['username']
         ]);
     
-        $data["message"] = "您已成功新增使用者-" . $username;
+        $data["message"] = "您已成功新增使用者-" . $_POST['username'];
         $data["alert_type"] = "alert-success";
         $tmplFile = 'partial/message.html.twig';
         break;
