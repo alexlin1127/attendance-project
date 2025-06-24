@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // 只在vendor中使用我們需要的外掛
 use Twig\Loader\FilesystemLoader;
