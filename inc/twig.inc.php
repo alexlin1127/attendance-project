@@ -12,8 +12,9 @@ $loader = new FilesystemLoader(__DIR__ . '/../templates');
 
 // Twig 環境設定
 $twig = new Environment($loader, [
-    'cache' => __DIR__ . '/../cache', 
-    'debug' => true,                
+    // 'cache' => __DIR__ . '/../cache', 
+    'cache' => false,
+    'debug' => false,                
 ]);
 
 // 載入 Twig 除錯擴展 (只有在 debug 為 true 時才啟用)
