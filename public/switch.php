@@ -90,7 +90,7 @@ switch($mode) {
 
     case 'add_stdata':
         // 取得所有學員名稱
-        $stmt = $pdo->prepare('SELECT name FROM attendance_log group BY name;');
+        $stmt = $pdo->prepare('SELECT name FROM attendance_log group by name;');
         $stmt->execute();
         $nameArray = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -151,9 +151,8 @@ switch($mode) {
 
         $stmt = $pdo->prepare(
             "INSERT INTO attendance_log (name, class_date, class_hours, raw_hours, attended_hours, 
-            late_hours, leave_early_hours, absent_hours) VALUES ( name = :pname, class_date = :pdate, 
-            class_hours = :pclass, raw_hours = :praw, attended_hours = :patt, late_hours = :plate, 
-            leave_early_hours = :pleave, absent_hours = :pabs;"
+            late_hours, leave_early_hours, absent_hours) VALUES 
+            (:pname, :pdate, :pclass, :praw, :patt, :plate, :pleave, :pabs)"
         );
 
         $stmt->execute([
