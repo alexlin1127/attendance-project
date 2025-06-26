@@ -150,11 +150,13 @@ switch($mode) {
         }
 
         $stmt = $pdo->prepare(
-            "INSERT INTO attendance_log (name, class_date, class_hours, raw_hours, attended_hours, 
-            late_hours, leave_early_hours, absent_hours) VALUES ( name = :pname, class_date = :pdate, 
-            class_hours = :pclass, raw_hours = :praw, attended_hours = :patt, late_hours = :plate, 
-            leave_early_hours = :pleave, absent_hours = :pabs;"
-        );
+    "INSERT INTO attendance_log (
+        name, class_date, class_hours, raw_hours, attended_hours, 
+        late_hours, leave_early_hours, absent_hours
+    ) VALUES (
+        :pname, :pdate, :pclass, :praw, :patt, :plate, :pleave, :pabs
+    )"
+);
 
         $stmt->execute([
             ":pname" => $_POST['pname'],
