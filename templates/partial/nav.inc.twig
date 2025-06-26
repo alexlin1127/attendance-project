@@ -1,16 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<div class="container-fluid">
+	<div
+		class="container-fluid">
 		<!-- 後台標題 -->
-		<a class="navbar-brand ms-1 fw-bold fs-4" style="letter-spacing: 4px;"><i class="bi bi-arrow-bar-right"></i>出缺勤系統後台</a>
+		<a class="navbar-brand ms-1 fw-bold fs-4" style="letter-spacing: 4px;">
+			<i class="bi bi-arrow-bar-right"></i>出缺勤系統後台</a>
 		<!-- 漢堡選單按鈕 (小螢幕顯示) -->
-		<button
-			class="navbar-toggler"
-			type="button"
-			data-bs-toggle="collapse"
-			data-bs-target="#navbarNav"
-			aria-controls="navbarNav"
-			aria-expanded="false"
-			aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -19,12 +14,21 @@
 		<div class="collapse navbar-collapse justify-content-end me-3" id="navbarNav">
 			<ul class="navbar-nav">
 				{% if role == 'admin' or role == 'adv-user' %}
-				<li class="nav-item me-lg-2">
-					<a class="nav-link active" aria-current="page" href="dashboard.php">首頁</a>
-				</li>
+					<li class="nav-item me-lg-2">
+						<a class="nav-link active" aria-current="page" href="dashboard.php">首頁</a>
+					</li>
 				{% endif %}
+
+				{% if role == 'nor_user' %}
+					<li class="nav-item me-lg-2">
+						<a class="nav-link active" aria-current="page" href="switch.php?mode=show&name={{ username }}">首頁</a>
+					</li>
+				{% endif %}
+
 				<li class="nav-item me-lg-2">
-					<a class="nav-link active" aria-current="page"><i class="bi bi-person-circle"></i>  {{username}}</a>
+					<a class="nav-link active" aria-current="page">
+						<i class="bi bi-person-circle"></i>
+						{{username}}</a>
 				</li>
 				<li class="nav-item text-end">
 					<a class="btn btn-outline-warning" aria-current="page" href="logout.php">登出</a>

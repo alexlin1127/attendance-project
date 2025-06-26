@@ -12,6 +12,11 @@ $selected_name = $_GET['student_name'] ?? '';
 $start_date = $_GET['start_date'] ?? '';
 $end_date = $_GET['end_date'] ?? '';
 
+//學員登入後看自己的出缺勤明細
+if ($_SESSION['backend_login_role'] === 'nor_user') {
+    $selected_name = $_SESSION['backend_login_name'];
+}
+
 $data['selected_name'] = $selected_name;
 $data['start_date'] = $start_date;
 $data['end_date'] = $end_date;
@@ -47,7 +52,7 @@ $query = array_filter([
     'start_date' => $start_date,
     'end_date' => $end_date
 ]);
-$data['queryString'] = http_build_query($query);
+$data['queryString'] = http_build_query($query);    
 
 // 查總筆數
 $sqlCount = "SELECT COUNT(*) as total FROM attendance_log $whereSql";
