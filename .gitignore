@@ -1,2 +1,5 @@
-cache
+cache/
 vendor/*
+.vscode
+copilot-commit-message-instructions.md
+.env
