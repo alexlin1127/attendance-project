@@ -1,12 +1,16 @@
  <?php
+    require_once __DIR__ . '/../vendor/autoload.php';
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
 
     // 連線設定
-    $host = '36.228.223.127';        
-    $dbName = 'AbsenceSystemTeam4';  
-    $username = 'Alex';
-    $password = 'fs101';          
-    $charset = 'utf8mb4';
-    $port = '3306';
+    $host = $_ENV['DB_HOST'];
+    $dbName = $_ENV['DB_NAME'];
+    $username = $_ENV['DB_USERNAME'];
+    $password = $_ENV['DB_PASSWORD'];
+    $charset = $_ENV['DB_CHARSET'];
+    $port = $_ENV['DB_PORT'];
 
     // DSN (Data Source Name)
     $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset={$charset}";
