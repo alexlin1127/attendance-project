@@ -4,6 +4,8 @@
 
 網址連結：http://kobayashi881127.ddns.net
 
+測試帳號/密碼：admin@demo.com / test1234
+
 ## 目錄結構
 
 ```
