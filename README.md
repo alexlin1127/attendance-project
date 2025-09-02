@@ -4,6 +4,8 @@
 
 網址連結：http://kobayashi881127.ddns.net
 
+帳號 / 密碼（瀏覽測試用）：company@demo.com / test1234
+
 ## 目錄結構
 
 ```
@@ -237,14 +239,14 @@ php -S localhost:8000 -t public
 ### 本地開發
 ```bash
 # 複製專案
-git clone <repository-url>
+git clone https://github.com/alexlin1127/attendance-project.git
 cd attendance-project
 
 # 安裝相依套件
 composer install
 
 # 編輯環境變數
-nano .env
+vim .env
 
 # 啟動開發伺服器
 php -S localhost:8000 -t public
